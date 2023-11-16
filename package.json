@@ -1,0 +1,29 @@
+{
+  "name": "goldsmiths-gym",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DeltaCharlie8/goldsmiths-gym.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DeltaCharlie8/goldsmiths-gym/issues"
+  },
+  "homepage": "https://github.com/DeltaCharlie8/goldsmiths-gym#readme",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "body-parser": "^1.20.2",
+    "ejs": "^3.1.9",
+    "express": "^4.18.2",
+    "express-sanitizer": "^1.0.6",
+    "express-session": "^1.17.3",
+    "express-validator": "^7.0.1",
+    "mysql": "^2.18.1"
+  }
+}
