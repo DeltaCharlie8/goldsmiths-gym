@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Welcome to <%=gymName%></title>
+    <link rel="stylesheet"  type="text/css" href="/main.css" />
+  </head>
+  <body>
+    <h1><%=gymName%></h1>
+    <h2>Here are the classes available:</h2>
+    <table>
+      <tr>
+        <th>Name</th>
+        <th>Day</th>
+        <th>Start</th>
+        <th>End</th>
+        <th>Trainer</th>
+        <th>Price</th>
+        <th>Spaces Left</th>
+      </tr>
+      <% availableClasses.forEach(function(classes) { %>
+        <tr>
+          <td><%=classes.name %></td>
+          <td><%=classes.day%></td>
+          <td><%=classes.start%></td>
+          <td><%=classes.end%></td>
+          <td><%=classes.trainer%></td>
+          <td>£<%=classes.price%></td>
+          <td><%=classes.spaces%></td>
+        </tr>
+      <% }) %>
+    </body>
+</html>

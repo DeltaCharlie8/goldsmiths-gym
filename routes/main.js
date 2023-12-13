@@ -95,4 +95,17 @@ module.exports = function(app, gymData) {
     });
   });
 
+  app.get('/classes', function(req, res) {
+    let sqlquery = "SELECT * FROM classes"; // query database to get all the classes available
+    // execute sql query
+    db.query(sqlquery, (err, result) => {
+        if (err) {
+            res.redirect('./'); 
+        }
+        let newData = Object.assign({}, gymData, {availableClasses:result});
+        console.log(newData)
+        res.render("classes.ejs", newData)
+     });
+});
+
 }
