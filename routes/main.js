@@ -36,9 +36,9 @@ module.exports = function(app, gymData) {
           if (err) {
             return console.error(err.message);
           }
-        let newrecord = [req.sanitize(req.body.username), req.sanitize(req.body.first), req.sanitize(req.body.last), req.sanitize(req.body.email), req.sanitize(hashedPassword)];
+        let newrecord = [req.sanitize(req.body.first), req.sanitize(req.body.last), req.sanitize(req.body.email), req.sanitize(hashedPassword)];
         // execute sql query
-        let sqlquery = "INSERT INTO users (`username`, first_name, last_name, `email`, `hashedPassword`) VALUES (?,?,?,?,?)";
+        let sqlquery = "INSERT INTO members (firstname, lastname, `email`, `hashedPassword`) VALUES (?,?,?,?)";
         db.query(sqlquery, newrecord, (err, result) => {
         //if it fails
           if (err) {
@@ -57,8 +57,8 @@ module.exports = function(app, gymData) {
   }); 
 
   app.post('/loggedin', function (req,res) {
-    let newrecord = [req.sanitize(req.body.username)]
-    let sqlquery = "SELECT hashedPassword FROM users WHERE username = ?"      
+    let newrecord = [req.sanitize(req.body.name)]
+    let sqlquery = "SELECT hashedPassword FROM members WHERE firstname = ?"      
     db.query(sqlquery, newrecord, (err, result) => {
       if(err) {
         return console.error(err.message);
@@ -73,12 +73,12 @@ module.exports = function(app, gymData) {
           }
           else if (result == true) {
             //save user session here, when login is successful
-            req.session.userID = req.body.username;
+            req.session.memberID = req.body.first;
             //res.send('You are now logged in! <a href='+'./'+'>Home</a>');
-            res.send('Welcome ' + req.body.username + '. You are now logged in! <a href='+'./'+'>Home</a>');
+            res.send('Welcome ' + req.body.name + '. You are now logged in! <a href='+'./'+'>Home</a>');
           }
           else {
-            res.send('You have entered an incorrect, please try again');
+            res.send('You have entered an incorrect input, please try again');
           }
         });
       }
