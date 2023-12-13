@@ -60,7 +60,6 @@ app.engine('html', ejs.renderFile);
 var gymData = {gymName: "Goldsmiths Gym"}
 
 // Requires the main.js file inside the routes folder passing in the Express app and data as arguments.  All the routes will go in this file
-// Requires the main.js file inside the routes folder passing in the Express app and data as arguments.  All the routes will go in this file
 require("./routes/main")(app, gymData);
 
 // Start the web app listening
