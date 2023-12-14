@@ -1,12 +1,11 @@
 module.exports = function(app, gymData) {
   const redirectLogin = (req, res, next) => {
     if (!req.session.memberID) {
-      res.redirect('./login')
-    } else { next (); }
-  }
+      res.redirect('./login'); 
+    } else { next(); }
+  };   
   const { check, validationResult } = require ('express-validator');
-  const bcrypt = require('bcrypt');
-    
+  const bcrypt = require('bcrypt'); 
 
   //Handle our routes
   app.get('/',function(req,res){
@@ -76,11 +75,11 @@ module.exports = function(app, gymData) {
                 res.status(500).send('Internal server error. Please try again later.<a href='+'./'+'>Home</a>');
               } else if (result === true) {
                 //save user session here, when login is successful
-                  req.session.memberID = req.body.first;
-                  console.error("logged in")
+                  req.session.memberID = req.body.name;
+                  console.log("logged in")
                   res.send('Welcome ' + req.body.name + '. You are now logged in! <a href='+'./'+'>Home</a>');
               } else {
-                console.error('Incorrect password');
+                console.log('Incorrect password');
                 res.status(401).send('You have entered an incorrect password, please try again. <a href='+'./login'+'>Return</a>');
               }
           });
@@ -89,17 +88,17 @@ module.exports = function(app, gymData) {
     });
   });
 
-  app.get('/logout',  (req,res) => {  //I can't include redirectLogin, for some reason this prevents the user from logging out
+  app.get('/logout', redirectLogin, (req,res) => { 
     req.session.destroy(err => {
       if (err) {
-        return res.redirect('./')
+        return res.redirect('./');
       }
       console.error("logged out")
       res.send('You are now logged out. <a href='+'./'+'>Home</a>');
     });
   });
 
-  app.get('/classes', function(req, res) {
+  app.get('/classes', redirectLogin, function(req, res) {
     let sqlquery = "SELECT * FROM classes"; // query database to get all the classes available
     // execute sql query
     db.query(sqlquery, (err, result) => {
