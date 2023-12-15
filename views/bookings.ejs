@@ -7,22 +7,19 @@
   <body>
     <h1>Book a class with <%=gymName%></h1>
     <p><a href="/">Home</a></p>
-    <br>
     <form method="POST" action="/booked">
-        <p>First name: <input id="first" type="text" name="first" value="first name" /></p>
-        <p>Last name: <input id="last" type="text" name="last" value="last name" /></p>
-        <p>Class:
-            <select name="class">
-              <% classes.forEach(function(gymClass) { %>
-                <% if (gymClass.spaces > 0) { %> 
-                    <option value="<%= gymClass.id %>"><%= gymClass.name %> <%= gymClass.day %> <%= gymClass.start %> (<%= gymClass.spaces %> spaces left)</option>
-                  <% } else { %>
-                    <option value="<%= gymClass.name %>" disabled><%= gymClass.className %> (<%= gymClass.name %> <%= gymClass.day %> <%= gymClass.start %> is full)</option>
-                  <% } %>
+      <p>First Name: <input type="text" name="first" /></p>
+      <p>Last Name: <input type="text" name="last" /></p>
+      <p>Select a Class:
+          <select name="selectedClassId">
+              <% gymClasses.forEach(function(gymClass) { %>
+                  <option value="<%= gymClass.classes_id %>">
+                      <%= gymClass.name %> - <%= gymClass.day %> - <%= gymClass.start %> (Spaces Left: <%= gymClass.spaces %>)
+                  </option>
               <% }) %>
-            </select>
-        </p>
-        <input id="confirm" type="submit" value="Confirm Booking" />
-      </form>
+          </select>
+      </p>
+      <input type="submit" value="Book Class" />
+  </form>
   </body>
 </html>

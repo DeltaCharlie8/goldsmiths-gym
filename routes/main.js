@@ -99,7 +99,7 @@ module.exports = function(app, gymData) {
   });
 
   app.get('/classes', function(req, res) {
-    let sqlquery = "SELECT * FROM classes"; // query database to get all the classes available
+    let sqlquery = "SELECT * FROM gymClasses"; // query database to get all the classes available
     // execute sql query
     db.query(sqlquery, (err, result) => {
         if (err) {
@@ -117,7 +117,7 @@ module.exports = function(app, gymData) {
 
   app.get('/search-result', function (req, res) {
     //searching in the database
-    let sqlquery = "SELECT * FROM classes WHERE name LIKE '%" + req.sanitize(req.query.keyword) + "%'"; // query database to get all the books
+    let sqlquery = "SELECT * FROM gymClasses WHERE name LIKE '%" + req.sanitize(req.query.keyword) + "%'"; // query database to get all the books
     // execute sql query
     db.query(sqlquery, (err, result) => {
         if (err) {
@@ -130,43 +130,44 @@ module.exports = function(app, gymData) {
   });
 
   app.get('/bookings', redirectLogin, function(req, res) {
-    let sqlQuery = "SELECT * FROM classes"; //get all the classes from the database
+    let sqlQuery = "SELECT * FROM gymClasses"; //get all the classes from the database
     db.query(sqlQuery, (err, result) => {
       if (err) {
         console.error(err);
         res.redirect('/'); 
       }
       //creates a list of the classes available to book
-      res.render('bookings.ejs', {gymName: 'Goldsmiths Gym', classes: result});
+      res.render('bookings.ejs', {gymName: 'Goldsmiths Gym', gymClasses: result});
     });
   });
 
-  app.post('/booked', function (req,res) {
-    //get data from the bookings form
-    let {class: selectedClassId, first, last } = req.body;
+  app.post('/booked', function (req, res) {
+    // Get data from the bookings form
+    let { selectedClassId, first, last } = req.body;
     if (!selectedClassId || !first || !last) {
-      res.redirect('/bookings'); 
-    return;
-    };
-    //updates the database to reduce spaces available
-    let sqlUpdateQuery = 'UPDATE classes SET spaces = spaces - 1 WHERE id = ? AND spaces > 0'; 
-    db.query(sqlUpdateQuery, [selectedClassId], (err,result) => {
-      if (err) {
-        console.error('Error updating spaces:', err);
-        res.redirect('/bookings'); 
+        res.redirect('/bookings');
         return;
-      }
-      let sqlClassName = "SELECT name, day, start FROM classes WHERE id = ?"
-      db.query(sqlClassName, [selectedClassId], (err, result) => {
+    }
+    // Update the database to reduce spaces available
+    let sqlUpdateQuery = 'UPDATE gymClasses SET spaces = spaces - 1 WHERE classes_id = ? AND spaces > 0';
+    db.query(sqlUpdateQuery, [selectedClassId], (err, result) => {
         if (err) {
-          console.error(err);
-          res.redirect('/bookings');
-          return;
+            console.error('Error updating spaces:', err);
+            res.redirect('/bookings');
+            return;
         }
-        let newrecord = result[0];
-        //sends confirmation message
-        res.send('You are now booked on to ' + newrecord.name + ' on ' + newrecord.day + ' at ' + newrecord.start + '. We look forward to welcoming you! <a href='+'./'+'>Home</a>');
-      });  
+        //finds the class name that has been selected in the bookings form
+        let sqlClassName = "SELECT name, day, start FROM gymClasses WHERE classes_id = ?";
+        db.query(sqlClassName, [selectedClassId], (err, result) => {
+            if (err) {
+                console.error(err);
+                res.redirect('/bookings');
+                return;
+            }
+            let newrecord = result[0];
+            // Send confirmation message
+            res.send('You are now booked on to ' + newrecord.name + ' on ' + newrecord.day + ' at ' + newrecord.start + '. We look forward to welcoming you! <a href="./">Home</a>');
+        });
     });
   });
 
