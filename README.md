@@ -3,7 +3,9 @@ To create this web application you can run the script below
 CREATE DATABASE myGym;
 USE myGym;
 CREATE TABLE members (members_id INT AUTO_INCREMENT PRIMARY KEY,firstname VARCHAR(100),lastname VARCHAR(100),email VARCHAR(100),hashedPassword VARCHAR(255));
+
 CREATE TABLE gymClasses (classes_id INT AUTO_INCREMENT PRIMARY KEY,name VARCHAR(50),day VARCHAR(20),start TIME,end TIME,trainer VARCHAR(50),price DECIMAL(8, 2),spaces INT DEFAULT 30);
+
 INSERT INTO gymClasses (name, day, start, end, trainer, price, spaces)
 VALUES 
     ('Spinning/Cycling Class', 'Monday', TIME_FORMAT('09:00', '%H:%i'), TIME_FORMAT('10:00', '%H:%i'), 'Biniam Girmay', 15.99, 30),
