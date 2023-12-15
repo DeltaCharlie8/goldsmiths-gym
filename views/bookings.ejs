@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Book a class with <%=gymName%></title>
+    <link rel="stylesheet"  type="text/css" href="/main.css" />
+  </head>
+  <body>
+    <h1>Book a class with <%=gymName%></h1>
+    <p><a href="/">Home</a></p>
+    <br>
+    <form method="POST" action="/booked">
+        <p>First name: <input id="first" type="text" name="first" value="first name" /></p>
+        <p>Last name: <input id="last" type="text" name="last" value="last name" /></p>
+        <p>Class:
+            <select name="class">
+              <% classes.forEach(function(gymClass) { %>
+                <% if (gymClass.spaces > 0) { %> 
+                    <option value="<%= gymClass.id %>"><%= gymClass.name %> <%= gymClass.day %> <%= gymClass.start %> (<%= gymClass.spaces %> spaces left)</option>
+                  <% } else { %>
+                    <option value="" disabled><%= gymClass.className %> (<%= gymClass.name %> <%= gymClass.day %> <%= gymClass.start %> is full)</option>
+                  <% } %>
+              <% }) %>
+            </select>
+        </p>
+        <input id="confirm" type="submit" value="Confirm Booking" />
+      </form>
+  </body>
+</html>

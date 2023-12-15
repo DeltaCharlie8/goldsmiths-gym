@@ -98,7 +98,7 @@ module.exports = function(app, gymData) {
     });
   });
 
-  app.get('/classes', redirectLogin, function(req, res) {
+  app.get('/classes', function(req, res) {
     let sqlquery = "SELECT * FROM classes"; // query database to get all the classes available
     // execute sql query
     db.query(sqlquery, (err, result) => {
@@ -127,6 +127,48 @@ module.exports = function(app, gymData) {
         console.log(newData)
         res.render("classes.ejs", newData)
      });        
+  });
+
+  app.get('/bookings', redirectLogin, function(req, res) {
+    let sqlQuery = "SELECT * FROM classes"; //get all the classes from the database
+    db.query(sqlQuery, (err, result) => {
+      if (err) {
+        console.error(err);
+        res.redirect('/'); 
+      }
+      //creates a list of the classes available to book
+      res.render('bookings.ejs', {gymName: 'Goldsmiths Gym', classes: result});
+    });
+  });
+
+  app.post('booked', function (req,res) {
+    //get data from the form
+  });
+
+  app.post('/booked', function(req, res) {
+    const { class: selectedClassId, first, last } = req.body; // Extract form data
+    if (!selectedClassId || !first || !last) {
+      res.redirect('/bookings'); // Redirect if required data is missing
+      return;
+    }  
+    // Perform actions with the form data, like displaying a confirmation message
+    const confirmationMessage = `Booking confirmed for ${first} ${last}!`;  
+    // Update the spaces field in the classes table (assuming initial spaces are 30)
+    const sqlUpdateQuery = 'UPDATE classes SET spaces = spaces - 1 WHERE classId = ? AND spaces > 0';    
+    db.query(sqlUpdateQuery, [selectedClassId], (err, result) => {
+      if (err) {
+        console.error('Error updating spaces:', err);
+        res.redirect('/bookings'); // Redirect or handle error accordingly
+        return;
+      }  
+      if (result.affectedRows === 0) {
+        // Handle cases where spaces are already full
+        res.redirect('/bookings'); // Redirect or display an error message
+        return;
+      }  
+      // Render a response with the confirmation message
+      res.render('confirmation', { confirmationMessage });
+    });
   });
 
 }
