@@ -1,4 +1,4 @@
-To create this web application you can run the script below
+To create this web application you can run the script below or copy and paste from the script file included in this repository.
 
 CREATE DATABASE myGym;
 USE myGym;
