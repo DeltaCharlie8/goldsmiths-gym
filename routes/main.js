@@ -141,33 +141,32 @@ module.exports = function(app, gymData) {
     });
   });
 
-  app.post('booked', function (req,res) {
-    //get data from the form
-  });
-
-  app.post('/booked', function(req, res) {
-    const { class: selectedClassId, first, last } = req.body; // Extract form data
+  app.post('/booked', function (req,res) {
+    //get data from the bookings form
+    let {class: selectedClassId, first, last } = req.body;
     if (!selectedClassId || !first || !last) {
-      res.redirect('/bookings'); // Redirect if required data is missing
-      return;
-    }  
-    // Perform actions with the form data, like displaying a confirmation message
-    const confirmationMessage = `Booking confirmed for ${first} ${last}!`;  
-    // Update the spaces field in the classes table (assuming initial spaces are 30)
-    const sqlUpdateQuery = 'UPDATE classes SET spaces = spaces - 1 WHERE classId = ? AND spaces > 0';    
-    db.query(sqlUpdateQuery, [selectedClassId], (err, result) => {
+      res.redirect('/bookings'); 
+    return;
+    };
+    //updates the database to reduce spaces available
+    let sqlUpdateQuery = 'UPDATE classes SET spaces = spaces - 1 WHERE id = ? AND spaces > 0'; 
+    db.query(sqlUpdateQuery, [selectedClassId], (err,result) => {
       if (err) {
         console.error('Error updating spaces:', err);
-        res.redirect('/bookings'); // Redirect or handle error accordingly
+        res.redirect('/bookings'); 
         return;
-      }  
-      if (result.affectedRows === 0) {
-        // Handle cases where spaces are already full
-        res.redirect('/bookings'); // Redirect or display an error message
-        return;
-      }  
-      // Render a response with the confirmation message
-      res.render('confirmation', { confirmationMessage });
+      }
+      let sqlClassName = "SELECT name, day, start FROM classes WHERE id = ?"
+      db.query(sqlClassName, [selectedClassId], (err, result) => {
+        if (err) {
+          console.error(err);
+          res.redirect('/bookings');
+          return;
+        }
+        let newrecord = result[0];
+        //sends confirmation message
+        res.send('You are now booked on to ' + newrecord.name + ' on ' + newrecord.day + ' at ' + newrecord.start + '. We look forward to welcoming you! <a href='+'./'+'>Home</a>');
+      });  
     });
   });
 

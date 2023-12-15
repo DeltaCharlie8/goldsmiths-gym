@@ -17,7 +17,7 @@
                 <% if (gymClass.spaces > 0) { %> 
                     <option value="<%= gymClass.id %>"><%= gymClass.name %> <%= gymClass.day %> <%= gymClass.start %> (<%= gymClass.spaces %> spaces left)</option>
                   <% } else { %>
-                    <option value="" disabled><%= gymClass.className %> (<%= gymClass.name %> <%= gymClass.day %> <%= gymClass.start %> is full)</option>
+                    <option value="<%= gymClass.name %>" disabled><%= gymClass.className %> (<%= gymClass.name %> <%= gymClass.day %> <%= gymClass.start %> is full)</option>
                   <% } %>
               <% }) %>
             </select>
