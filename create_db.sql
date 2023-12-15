@@ -24,13 +24,5 @@ VALUES
     ('Strength Training/Weightlifting Class', 'Wednesday', TIME_FORMAT('15:30', '%H:%i'), TIME_FORMAT('16:30', '%H:%i'), 'Terry Crews', 20.00, 30),
     ('Strength Training/Weightlifting Class', 'Friday', TIME_FORMAT('19:30', '%H:%i'), TIME_FORMAT('20:30', '%H:%i'), 'Terry Crews', 20.00, 30);
 
-
-DELIMITER //
-CREATE PROCEDURE sp_insert()
-BEGIN
-    #TODO
-END //
-DELIMITER ;
-
 CREATE USER 'appuser'@'localhost' IDENTIFIED WITH mysql_native_password BY 'app2027';
 GRANT ALL PRIVILEGES ON myGym.* TO 'appuser'@'localhost';
