@@ -2,10 +2,11 @@
 <html>
     <head>
         <title>Welcome to <%=gymName%></title>
-        <link rel="stylesheet"  type="text/css" href="/main.css" />
+        <link rel="stylesheet"  type="text/css" href="main.css"/>
     </head>
     <body>
         <h1>Lets do a weather check because who wants to commute in the rain!</h1>
+        <p><a href="/">Home</a></p>
         <form method="POST" action="/weather">
             <p>City: <input id="city" type="text" name="city" value="Enter a city"/></p>
             <input type="submit" value="Submit" />

@@ -45,7 +45,7 @@ module.exports = function(app, gymData) {
             return console.error(err.message);
           }          
           result = 'Hello ' + req.body.first + ' ' + req.body.last + ' you are now registered! We will send a confirmation email to you at ' + req.body.email;
-          result += ' Your password is ' + plainPassword + ' and your hashed password is ' + hashedPassword + '<a href='+'./'+'>Home</a>';
+          result += '<a href='+'./'+'>Home</a>';
           res.send(result);
           });
         })    

@@ -16,9 +16,9 @@ VALUES
     ('HIIT Class', 'Wednesday', TIME_FORMAT('18:30', '%H:%i'), TIME_FORMAT('19:30', '%H:%i'), 'Derrick Evans', 18.75, 30),
     ('HIIT Class', 'Friday', TIME_FORMAT('18:30', '%H:%i'), TIME_FORMAT('19:30', '%H:%i'), 'Derrick Evans', 18.75, 30),
 
-    ('Zumba/Dance Fitness Class', 'Tuesday', TIME_FORMAT('18:30', '%H:%i'), TIME_FORMAT('19:30', '%H:%i'), 'Debbie ALlen', 14.00, 30),
-    ('Zumba/Dance Fitness Class', 'Thursday', TIME_FORMAT('18:30', '%H:%i'), TIME_FORMAT('19:30', '%H:%i'), 'Debbie ALlen', 14.00, 30),
-    ('Zumba/Dance Fitness Class', 'Saturday', TIME_FORMAT('18:30', '%H:%i'), TIME_FORMAT('19:30', '%H:%i'), 'Debbie ALlen', 14.00, 30),
+    ('Zumba/Dance Fitness Class', 'Tuesday', TIME_FORMAT('18:30', '%H:%i'), TIME_FORMAT('19:30', '%H:%i'), 'Debbie Allen', 14.00, 30),
+    ('Zumba/Dance Fitness Class', 'Thursday', TIME_FORMAT('18:30', '%H:%i'), TIME_FORMAT('19:30', '%H:%i'), 'Debbie Allen', 14.00, 30),
+    ('Zumba/Dance Fitness Class', 'Saturday', TIME_FORMAT('18:30', '%H:%i'), TIME_FORMAT('19:30', '%H:%i'), 'Debbie Allen', 14.00, 30),
 
     ('Strength Training/Weightlifting Class', 'Monday', TIME_FORMAT('11:30', '%H:%i'), TIME_FORMAT('12:30', '%H:%i'), 'Terry Crews', 20.00, 30),
     ('Strength Training/Weightlifting Class', 'Wednesday', TIME_FORMAT('15:30', '%H:%i'), TIME_FORMAT('16:30', '%H:%i'), 'Terry Crews', 20.00, 30),
