@@ -17,3 +17,19 @@ p,li {
     font-weight: bold;
     color: rgb(140, 88, 171);
 }
+
+table, th, td {
+    border: 1px solid;
+    border-collapse: collapse;
+    background-color: rgb(150, 132, 250);
+}
+
+th, td {
+    padding-left: 5px;
+    padding-right: 5px;
+    text-align: left;
+  }
+
+.spaces {
+    text-align: center;
+}

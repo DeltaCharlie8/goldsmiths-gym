@@ -19,15 +19,15 @@
         <th>Spaces Left</th>
       </tr>
       <% availableClasses.forEach(function(classes) { %>
-        <tr>
-          <td><%=classes.name %></td>
-          <td><%=classes.day%></td>
-          <td><%=classes.start%></td>
-          <td><%=classes.end%></td>
-          <td><%=classes.trainer%></td>
-          <td>£<%=classes.price%></td>
-          <td><%=classes.spaces%></td>
-        </tr>
+      <tr>
+        <td><%=classes.name %></td>
+        <td><%=classes.day%></td>
+        <td><%=classes.start%></td>
+        <td><%=classes.end%></td>
+        <td><%=classes.trainer%></td>
+        <td>£<%=classes.price%></td>
+        <td class="spaces"><%=classes.spaces%></td>
+      </tr>
       <% }) %>
     </body>
 </html>
