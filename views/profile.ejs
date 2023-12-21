@@ -26,8 +26,8 @@
         <td><%=bookedClass.end%></td>
         <td><%=bookedClass.trainer%></td>
         <td>
-          <form action="/cancelBooking" method="post" onsubmit="return confirmCancellation()"> <!-- Example action and method for cancellation -->
-            <input type="hidden" name="bookingId" value="<%= bookedClass.booking_id %>"> <!-- Pass the booking ID -->
+          <form action="/cancelBooking" method="post" onsubmit="return confirmCancellation()">
+            <input type="hidden" name="bookingId" value="<%= bookedClass.booking_id %>">
             <button type="submit">Cancel</button>
         </form>
         </td>
