@@ -39,8 +39,12 @@
     function confirmCancellation() {
         return confirm("Are you sure you want to cancel this booking?");
     }
-</script>
-    <p>change details button goes here</p>
-    <p>delete account button goes here</p>
+  </script>
+  <br>
+  <br>
+  <br>
+  <form action="/deleteAccount" method="post">
+    <button type="submit" onclick="return confirm('Are you sure you want to delete your account?')">Delete Account</button>
+  </form>
   </body>
 </html>

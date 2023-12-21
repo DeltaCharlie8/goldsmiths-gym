@@ -206,7 +206,44 @@ module.exports = function(app, gymData) {
             });
         }
     });
-});
+  });
+
+  app.post('/cancelBooking', function (req, res) {
+    const bookingId = req.body.bookingId; // Retrieve booking ID from the form
+    // Execute SQL queries to remove booking and increment spaces
+    const cancelBookingQuery = 'DELETE FROM bookings WHERE booking_id = ?';
+    const incrementSpacesQuery = 'UPDATE gymClasses SET spaces = spaces + 1 WHERE classes_id = (SELECT class_id FROM bookings WHERE booking_id = ?)';
+
+    db.query(cancelBookingQuery, [bookingId], (err, result) => {
+        if (err) {
+            console.error('Error canceling booking:', err);
+            res.redirect('/profile'); 
+        } else {
+          //once the booking is removed, then add the space back in the table
+            db.query(incrementSpacesQuery, [bookingId], (err, result) => {
+                if (err) {
+                    console.error('Error incrementing spaces:', err);
+                }
+                res.redirect('/profile');
+            });
+        }
+    });
+  });
+
+  app.post('/deleteAccount', function (req, res) {
+    const memberId = req.session.memberID; 
+    let sqlQuery = 'DELETE FROM members WHERE members_id = ?';
+
+    db.query(sqlQuery, [memberId], (err, result) => {
+        if (err) {
+            console.error('Error deleting account:', err);
+            res.redirect('/profile'); // Redirect to profile page
+        } else {
+            req.session.destroy(); 
+            res.redirect('/'); // Redirect to home page
+        }
+    });
+  });
 
   app.get('/weather', function(req, res) {
     res.render('weather.ejs', gymData);
