@@ -5,14 +5,19 @@
     <link rel="stylesheet"  type="text/css" href="main.css" />
   </head>
   <body>
-    <h1>Welcome to <%=gymName%></h1>
-    <p><a href="about">About <%=gymName%></a></p>
-    <p><a href="register">Register with us</a></p>
-    <p><a href="login">Login</a></p>
-    <p><a href="logout">Logout</a></p>
-    <p><a href="classes">See whats on this week</a></p>
-    <p><a href="search">Find a class</a></p>
-    <p><a href="bookings">Book a class</a></p>
-    <p><a href="weather">Check the weather!</a></p>
+    <p class="login"><a href="login">Login</a>  <a href="register">Register</a></p>
+      <h1>Welcome to <%=gymName%></h1>
+    <div class="menu">
+      <button class="menu_button">Menu</button>
+      <div class="menu-content">
+        <a href="about">About Us</a>
+        <a href="weather">Check the weather!</a>   
+        <a href="classes">See whats on this week</a>
+        <a href="search">Find a class</a>
+        <a href="bookings">Book a class</a>  
+        <a href="profile">Manage account</a>
+        <a href="logout">Logout</a>
+      </div>
+    </div>
   </body>
 </html>

@@ -58,7 +58,7 @@ module.exports = function(app, gymData) {
 
   app.post('/loggedin', function (req,res) {
     let newrecord = [req.sanitize(req.body.name)]
-    let sqlquery = "SELECT hashedPassword FROM members WHERE firstname = ?";
+    let sqlquery = "SELECT members_id, hashedPassword FROM members WHERE firstname = ?";
     db.query(sqlquery, newrecord, (err, result) => {
       if (err) {
         console.error('Database error:', err.message);
@@ -69,13 +69,14 @@ module.exports = function(app, gymData) {
           res.status(401).send('That name is not recognised, please try again. <a href='+'./login'+'>Return</a>');
         } else {
             const hashedPassword = result[0].hashedPassword;
+            const memberId = result[0].members_id;
             bcrypt.compare(req.body.password, hashedPassword, function (err, result) {
               if (err) {
                 console.error('bcrypt error:', err.message);
                 res.status(500).send('Internal server error. Please try again later.<a href='+'./'+'>Home</a>');
               } else if (result === true) {
                 //save user session here, when login is successful
-                  req.session.memberID = req.body.name;
+                  req.session.memberID = memberId;
                   console.log("logged in")
                   res.send('Welcome ' + req.body.name + '. You are now logged in! <a href='+'./'+'>Home</a>');
               } else {
@@ -156,6 +157,15 @@ module.exports = function(app, gymData) {
             res.redirect('/bookings');
             return;
         }
+        //stores the booking in the bookings table
+        let insertQuery = `INSERT INTO bookings (members_id, class_id, name, day, start, end, trainer) SELECT ?, classes_id, name, day, start, end, trainer FROM gymClasses WHERE classes_id = ?`;
+        db.query(insertQuery, [req.session.memberID, selectedClassId], (err, result) => {
+            if (err) {
+                console.error('Error inserting booking:', err);
+                res.redirect('/bookings');
+                return;
+            }
+        });
         //finds the class name that has been selected in the bookings form
         let sqlClassName = "SELECT name, day, start FROM gymClasses WHERE classes_id = ?";
         db.query(sqlClassName, [selectedClassId], (err, result) => {
@@ -171,6 +181,33 @@ module.exports = function(app, gymData) {
     });
   });
 
+  app.get('/profile', redirectLogin, function(req, res){
+    let memberId = req.session.memberID;
+    let sqlQuery = `SELECT firstname, lastname, members_id FROM members WHERE members_id = ${memberId}`;
+    let sqlQueryBookings = `SELECT * FROM bookings WHERE members_id = ${memberId}`;    
+    db.query(sqlQuery, (err, result) => {
+        if (err) {
+            console.error(err);
+            res.redirect('/');
+        } else {
+            const memberData = {
+                firstName: result[0].firstname,
+                lastName: result[0].lastname,
+                memberId: result[0].members_id
+            };
+            db.query(sqlQueryBookings, (err, result) => {
+                if (err) {
+                    console.error(err);
+                    res.redirect('/');
+                } else {
+                    const bookedClasses = result;                    
+                    res.render('profile.ejs', { ...gymData, member: memberData, bookedClasses });
+                }
+            });
+        }
+    });
+});
+
   app.get('/weather', function(req, res) {
     res.render('weather.ejs', gymData);
   });
@@ -178,7 +215,7 @@ module.exports = function(app, gymData) {
   app.post('/weather', function(req, res) {
     const request = require('request');          
       let apiKey = '1ce2ff03743b33be460a8b285c80fffc';
-      let city = req.body.city; //retrieves the city from the form input
+      let city = [req.sanitize(req.body.city)]; //retrieves the city from the form input
       let url = `http://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`             
       request(url, function (err, response, body) {
         if(err){

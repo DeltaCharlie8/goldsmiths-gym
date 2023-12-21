@@ -5,29 +5,31 @@
     <link rel="stylesheet"  type="text/css" href="main.css"/>
   </head>
   <body>
-    <h1>What's on at <%=gymName%></h1>
     <p><a href="/">Home</a></p>
-    <h2>Here are the classes available:</h2>
-    <table>
-      <tr>
-        <th>Name</th>
-        <th>Day</th>
-        <th>Start</th>
-        <th>End</th>
-        <th>Trainer</th>
-        <th>Price</th>
-        <th>Spaces Left</th>
-      </tr>
-      <% availableClasses.forEach(function(classes) { %>
-      <tr>
-        <td><%=classes.name %></td>
-        <td><%=classes.day%></td>
-        <td><%=classes.start%></td>
-        <td><%=classes.end%></td>
-        <td><%=classes.trainer%></td>
-        <td>£<%=classes.price%></td>
-        <td class="spaces"><%=classes.spaces%></td>
-      </tr>
-      <% }) %>
+    <h1>What's on at <%=gymName%></h1>
+    <div class="table_box">
+      <table>
+        <tr>
+          <th>Name</th>
+          <th>Day</th>
+          <th>Start</th>
+          <th>End</th>
+          <th>Trainer</th>
+          <th>Price</th>
+          <th>Spaces Left</th>
+        </tr>
+        <% availableClasses.forEach(function(classes) { %>
+        <tr>
+          <td><%=classes.name %></td>
+          <td><%=classes.day%></td>
+          <td><%=classes.start%></td>
+          <td><%=classes.end%></td>
+          <td><%=classes.trainer%></td>
+          <td>£<%=classes.price%></td>
+          <td class="spaces"><%=classes.spaces%></td>
+        </tr>
+        <% }) %>
+      </table>
+    </div>    
     </body>
 </html>

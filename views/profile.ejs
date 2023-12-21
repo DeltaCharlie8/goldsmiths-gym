@@ -1,0 +1,46 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Welcome to <%=gymName%></title>
+    <link rel="stylesheet"  type="text/css" href="main.css" />
+  </head>
+  <body>
+    <p class="login"><a href="/">Home</a></p>
+    <h1><%= member.firstName %> <%= member.lastName %> Member ID: <%= member.memberId %></h1>    
+    <h3>Classes currently booked</h3>    
+  <div class="profile_table_box">
+    <table>
+      <tr>
+        <th>Name</th>
+        <th>Day</th>
+        <th>Start</th>
+        <th>End</th>
+        <th>Trainer</th>
+        <th></th>
+      </tr>
+      <% bookedClasses.forEach(function(bookedClass) { %>
+      <tr>
+        <td><%=bookedClass.name %></td>
+        <td><%=bookedClass.day%></td>
+        <td><%=bookedClass.start%></td>
+        <td><%=bookedClass.end%></td>
+        <td><%=bookedClass.trainer%></td>
+        <td>
+          <form action="/cancelBooking" method="post" onsubmit="return confirmCancellation()"> <!-- Example action and method for cancellation -->
+            <input type="hidden" name="bookingId" value="<%= bookedClass.booking_id %>"> <!-- Pass the booking ID -->
+            <button type="submit">Cancel</button>
+        </form>
+        </td>
+      </tr>
+      <% }) %>
+    </table>
+  </div> 
+  <script>
+    function confirmCancellation() {
+        return confirm("Are you sure you want to cancel this booking?");
+    }
+</script>
+    <p>change details button goes here</p>
+    <p>delete account button goes here</p>
+  </body>
+</html>

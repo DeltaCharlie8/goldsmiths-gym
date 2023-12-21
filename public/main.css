@@ -1,35 +1,110 @@
 html {
-    background-image: url('gym_background.jpg');
-    background-size: 80%;
+    background-image: url('gym.jpeg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    font-family: Arial, Helvetica, sans-serif;
+
+}
+
+.heading {
+    display: flex;
+    justify-content: center;
+    align-items: center
 }
 
 h1 {
-    margin: 0 auto;
     text-align: center;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 50px;
-    color: rgb(93, 67, 168);
-
+    text-shadow:2px 2px darkgreen;
+    margin: 0 auto;
+    font-size: 60px;
+    color: rgb(37, 150, 139);
 }
 
-p,li {
-    font-family: Arial, Helvetica, sans-serif;
+.login {
+    display: inline-block;
+    margin-left: auto;
+    font-weight: bolder;
+    background-color: rgb(37, 150, 139);
+}
+
+h2 {
+    text-align: center;
+    font-size: 40px;
     font-weight: bold;
-    color: rgb(140, 88, 171);
+    color: rgb(0, 0, 0);
+    margin-bottom: 100px;
+}
+
+h3 {
+  text-align: left;
+  font-size: 30px;
+  font-weight: bold;
+  color: rgb(37, 150, 139);
+  margin-top: 10;
+}
+
+p a {
+    color: black;
 }
 
 table, th, td {
     border: 1px solid;
     border-collapse: collapse;
-    background-color: rgb(150, 132, 250);
+    background-color: rgb(37, 175, 150);
+    color: black;    
 }
 
 th, td {
-    padding-left: 5px;
-    padding-right: 5px;
-    text-align: left;
+    padding-left: 4px;
+    padding-right: 2px;
   }
 
 .spaces {
     text-align: center;
 }
+
+.table_box {
+  padding-left: 4px;
+  padding-right: 2px;
+  color: black;
+  width: 50%; 
+  margin-top: 180px;
+  margin-left: 25%;
+}
+
+.profile_table_box {
+  color: black;
+  width: 50%; 
+}
+
+.menu_button {
+    background-color: rgb(37, 175, 150);
+    color: black;
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .menu-content {
+    display: none;
+    position: absolute;
+    background-color: rgb(37, 175, 150);
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  }
+  
+  .menu-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+  }
+  
+  .menu-content a:hover {
+    background-color: #f1f1f1;
+  }
+  
+  .menu:hover .menu-content {
+    display: block;
+  }
