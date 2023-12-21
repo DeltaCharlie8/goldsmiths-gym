@@ -6,7 +6,19 @@
   </head>
   <body>
     <h1>Search <%=gymName%></h1>
-    <p class="login"><a href="/">Home</a></p>
+    <div class="menu">
+      <button class="menu_button">Menu</button>
+      <div class="menu-content">
+        <a href="/">Home</a>
+        <a href="about">About Us</a>
+        <a href="weather">Check the weather!</a>   
+        <a href="classes">See whats on this week</a>
+        <a href="search">Find a class</a>
+        <a href="bookings">Book a class</a>  
+        <a href="profile">Manage account</a>
+        <a href="logout">Logout</a>
+      </div>
+    </div>
     <form action="/search-result" method="GET">
       <p>What class are you looking for?</p>
       <input id="search-box" type="text" name="keyword" value="Default">
