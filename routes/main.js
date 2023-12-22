@@ -158,7 +158,7 @@ module.exports = function(app, gymData) {
             return;
         }
         //stores the booking in the bookings table
-        let insertQuery = `INSERT INTO bookings (members_id, class_id, name, day, start, end, trainer) SELECT ?, classes_id, name, day, start, end, trainer FROM gymClasses WHERE classes_id = ?`;
+        let insertQuery = `INSERT INTO bookings (members_id, classes_id, name, day, start, end, trainer) SELECT ?, classes_id, name, day, start, end, trainer FROM gymClasses WHERE classes_id = ?`;
         db.query(insertQuery, [req.session.memberID, selectedClassId], (err, result) => {
             if (err) {
                 console.error('Error inserting booking:', err);
